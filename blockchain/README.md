@@ -1,57 +1,73 @@
-# Sample Hardhat 3 Beta Project (`mocha` and `ethers`)
+# 🔗 Blockchain – Hệ thống xác thực mỹ phẩm chính hãng
 
-This project showcases a Hardhat 3 Beta project using `mocha` for tests and the `ethers` library for Ethereum interactions.
+Thư mục `blockchain` chứa toàn bộ **Smart Contract**, cấu hình **Hardhat**, script deploy và dữ liệu build phục vụ cho hệ thống xác thực mỹ phẩm bằng **QR Code & Blockchain**.
 
-To learn more about the Hardhat 3 Beta, please visit the [Getting Started guide](https://hardhat.org/docs/getting-started#getting-started-with-hardhat-3). To share your feedback, join our [Hardhat 3 Beta](https://hardhat.org/hardhat3-beta-telegram-group) Telegram group or [open an issue](https://github.com/NomicFoundation/hardhat/issues/new) in our GitHub issue tracker.
+---
 
-## Project Overview
+##  Chức năng chính
+- Lưu trữ thông tin mỹ phẩm trên Blockchain
+- Đảm bảo dữ liệu **minh bạch – không thể chỉnh sửa**
+- Cung cấp dữ liệu cho Frontend xác thực thông qua QR Code
+- Ghi nhận lịch sử xác thực sản phẩm
 
-This example project includes:
+---
 
-- A simple Hardhat configuration file.
-- Foundry-compatible Solidity unit tests.
-- TypeScript integration tests using `mocha` and ethers.js
-- Examples demonstrating how to connect to different types of networks, including locally simulating OP mainnet.
+##  Công nghệ sử dụng
+- **Solidity**
+- **Hardhat**
+- **Hardhat Ignition**
+- **TypeScript**
+- **Ethers.js**
+- **Ethereum (Local / Testnet)**
 
-## Usage
+---
 
-### Running Tests
+##  Cấu trúc thư mục
+blockchain
+├── artifacts/ # File build sau khi compile
+├── cache/ # Cache của Hardhat
+├── contracts/ # Smart Contract
+│ ├── CosmeticAuthentication.sol
+│ ├── MyToken.sol
+│ ├── Mywallet.sol
+│ ├── Counter.sol
+│ └── Counter.t.sol
+│
+├── ignition/
+│ ├── deployments/
+│ │ └── chain-338/ # Thông tin deploy theo network
+│ └── modules/ # Module deploy Ignition
+│
+├── scripts/ # Script deploy thủ công
+├── test/ # Unit test Smart Contract
+├── types/ # Typechain types
+│
+├── hardhat.config.ts # Cấu hình Hardhat
+├── package.json
+├── tsconfig.json
+├── .gitignore
+└── README.md
+##  Mô tả Smart Contract
 
-To run all the tests in the project, execute the following command:
+###  CosmeticAuthentication.sol
+- Lưu thông tin mỹ phẩm:
+  - Mã sản phẩm
+  - Tên sản phẩm
+  - Thương hiệu
+  - Nhà sản xuất
+  - Ngày sản xuất / hạn sử dụng
+- Xác thực mỹ phẩm thông qua địa chỉ ví
+- Ghi nhận lịch sử xác thực
 
-```shell
-npx hardhat test
-```
+###  MyToken.sol
+- Smart contract token (ERC20 / custom)
+- Phục vụ mở rộng tính năng (reward, fee, …)
 
-You can also selectively run the Solidity or `mocha` tests:
+###  Mywallet.sol
+- Quản lý ví
+- Phục vụ demo & thử nghiệm
 
-```shell
-npx hardhat test solidity
-npx hardhat test mocha
-```
+###  Counter.sol
+- Contract mẫu (demo Hardhat)
 
-### Make a deployment to Sepolia
-
-This project includes an example Ignition module to deploy the contract. You can deploy this module to a locally simulated chain or to Sepolia.
-
-To run the deployment to a local chain:
-
-```shell
-npx hardhat ignition deploy ignition/modules/Counter.ts
-```
-
-To run the deployment to Sepolia, you need an account with funds to send the transaction. The provided Hardhat configuration includes a Configuration Variable called `SEPOLIA_PRIVATE_KEY`, which you can use to set the private key of the account you want to use.
-
-You can set the `SEPOLIA_PRIVATE_KEY` variable using the `hardhat-keystore` plugin or by setting it as an environment variable.
-
-To set the `SEPOLIA_PRIVATE_KEY` config variable using `hardhat-keystore`:
-
-```shell
-npx hardhat keystore set SEPOLIA_PRIVATE_KEY
-```
-
-After setting the variable, you can run the deployment with the Sepolia network:
-
-```shell
-npx hardhat ignition deploy --network sepolia ignition/modules/Counter.ts
-```
+---
